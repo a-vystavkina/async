@@ -1,35 +1,45 @@
+'use strict';
+
 function setAlarm(time, callback) {
-    return (fn) => {
-
-      if (fn === time) {
-
-        return callback();
-        
-      }
+  return (func) => {
+    console.log(func);
+    if (func === time) {
+      return callback();
+    }
+    else {
+    return undefined;
     }
   }
-  
-  // const goodMorning = () => alert('Доброе утро!'),
-  // 	checkTime = setAlarm('07:00', goodMorning);
-  
-  
-  // checkTime('07:30');
-  
-  // checkTime('07:00'); // Доброе утро
-  
-  function setDailyRhythm(wakeUpTime, bedTime) {
-  
+}
+
+const getZero = (param) => {
+  return param < 10 ? param = "0" + param : param;
+}
+
+function getCurrentTime() {
+    const currentSystemTime = new Date();
+    const currerntTime = getZero(currentSystemTime.getHours()) + ':' + getZero(currentSystemTime.getMinutes());
+    return currerntTime;
+}
+
+
+function setDailyRhythm(wakeUpTime, bedTime) {
+
   const goodMorning = () => alert('Доброе утро!'),
-      checkTime = setAlarm(wakeUpTime, goodMorning); 
-  
+	  checkTime = setAlarm(wakeUpTime, goodMorning); 
+
   const goodEvening = () => alert('Доброй ночи!'),
-      systemTime = setAlarm(bedTime, goodEvening);
-  
-  setInterval(goodMorning, 1000);
-  
-  setInterval(goodEvening, 1000);
-  
-  }
-  
-  setDailyRhythm('7:30', '18:30');
+	  systemTime = setAlarm(bedTime, goodEvening);
+
+  let morningTime = setInterval(function tick() {
+    checkTime(getCurrentTime ());
+    }, 1000);
+
+  let eveningTime = setTimeout(function tack() {
+    systemTime(getCurrentTime ());
+  }, 1000);
+ 
+}
+
+setDailyRhythm('16:25', '16:26');
   
